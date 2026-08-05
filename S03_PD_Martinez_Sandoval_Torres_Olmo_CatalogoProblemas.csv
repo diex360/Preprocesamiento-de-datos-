@@ -1,0 +1,25 @@
+﻿dimension,columna,problema,registros_afectados,pct_afectado,severidad,justificacion
+Validez,fecha_pedido,Fecha que no se pudo convertir con pd.to_datetime (mezcla de formatos + fechas inexistentes),223053,34.85,Crítico,Afecta a más de un tercio del dataset y compromete cualquier análisis temporal o de ingresos por periodo.
+Completitud,correo_cliente,Valor faltante (NaN),105312,16.46,Crítico,Bloquea la comunicación directa con 1 de cada 6 clientes; supera el umbral de 15%.
+Exactitud,precio_unitario,Precio negativo,19629,3.07,Crítico,Campo financiero directo; un precio negativo es lógicamente imposible.
+Consistencia,ciudad_tienda,"Variantes del mismo valor (mayúsculas, tildes, abreviaturas): 88 valores para 12 ciudades reales",314864,49.2,Alto,"Sin normalizar, cualquier segmentación geográfica o logística queda rota; es la columna con más variantes de todo el dataset."
+Consistencia,categoria_producto,Variantes del mismo valor: 32 valores para 6 categorías reales,304697,47.61,Alto,"Rompe el reporting de ventas por categoría, una de las vistas más usadas del negocio."
+Consistencia,canal_compra,Variantes del mismo valor: 20 valores para 4 canales reales,154781,24.18,Alto,Sin normalizar no se puede reportar ventas por canal de forma confiable.
+Consistencia,metodo_pago,Variantes del mismo valor: 20 valores para 4 métodos reales,129372,20.21,Alto,Sin normalizar no se puede reportar ventas por método de pago de forma confiable.
+Completitud,comentario_cliente,Valor faltante (NaN),90806,14.19,Alto,Limita el análisis cualitativo de retroalimentación de clientes.
+Oportunidad,fecha_actualizacion_stock,Stock sin actualizar hace más de 180 días,66069,10.32,Alto,Decisiones de inventario tomadas sobre datos de más de medio año de antigüedad.
+Completitud,nivel_satisfaccion,Valor faltante (NaN),46469,7.26,Alto,Limita el análisis de satisfacción de cliente para ese subconjunto.
+Unicidad,id_pedido,Pedido duplicado (filas involucradas),40000,6.25,Alto,Cada pedido duplicado infla artificialmente el conteo de ventas e ingresos en reportes agregados.
+Completitud,precio_unitario,Valor faltante (NaN),21640,3.38,Alto,Campo financiero clave: sin precio no se puede calcular el ingreso de esos pedidos.
+Exactitud,unidades_vendidas,Cantidad negativa,18550,2.9,Alto,Campo que multiplica directamente el ingreso; un valor negativo es financieramente imposible.
+Exactitud,unidades_vendidas,"Cantidad absurda (más de 100 en un solo pedido, hasta 9.999)",18526,2.89,Alto,Cada outlier distorsiona fuertemente cualquier suma de ingresos o inventario.
+Consistencia,nivel_satisfaccion,Variantes del mismo valor: 15 valores para 3 niveles reales,95706,14.95,Medio,"Afecta el análisis de satisfacción de cliente, sin comprometer cifras financieras."
+Validez,correo_cliente,Formato inválido (sin @),51532,8.05,Medio,Correos no utilizables para contacto; volumen menor que el problema de completitud del mismo campo.
+Completitud,ciudad_tienda,Valor faltante (NaN),29928,4.68,Medio,Limita el análisis geográfico y logístico para ese subconjunto de pedidos.
+Exactitud,edad_cliente,Edad imposible (negativa o mayor a 120 años),27829,4.35,Medio,"Afecta la segmentación demográfica, sin impacto financiero directo."
+Oportunidad,fecha_actualizacion_stock,Fecha de actualización en el futuro,21722,3.39,Medio,El stock no puede haberse actualizado en una fecha que todavía no llega.
+Validez,fecha_pedido,Fecha de pedido posterior a hoy,16485,2.58,Medio,"Una venta no puede haber ocurrido en el futuro; es un piso, hay más casos ocultos entre las fechas no convertidas."
+Exactitud,unidades_vendidas,Cantidad en cero,9327,1.46,Medio,Un pedido sin unidades no debería existir como venta; revisar si son cancelaciones mal registradas.
+Exactitud,precio_unitario,Precio absurdamente alto (> $10.000.000),6164,0.96,Medio,"Volumen bajo; revisar caso a caso, posible error de dígitos de más."
+Exactitud,peso_pedido_kg,Peso negativo (regla de dominio propia),0,0.0,Bajo,Sin problemas detectados; se documenta como validación limpia.
+Exactitud,monto_compra,Inconsistente con precio_unitario x unidades_vendidas (regla de dominio propia),0,0.0,Bajo,Sin problemas detectados; confirma que monto_compra es un campo calculado y confiable.
